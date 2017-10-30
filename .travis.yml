@@ -1,0 +1,33 @@
+sudo: required
+dist: trusty
+
+language: haxe
+
+# Add encrypted API key
+env:
+  global:
+    - secure: AsmbaKaPHHYwQJ8/+K9UdMnaX3j5/854AJa65RwpZseUCJkkIC2nGWdjoanYxC8EN6gPDkrlhS5otO6RR0IlsDKKdFOqUd02Z3soC9O8hcR2PjOtZQ3SGm3MMi+fED4/kpqhwcah1I7d9r+jH1LMwUw5tbNHBgghQIbo6V8dlxYdggSYgjHevVz3PZCcd/yasjdTTA6UJd9jrquqrvxxTlBrgyLwuVMhroKjkjoCp92JHx4vpr2B7HiO3US/HEqhtMzYuYGSgT90dMHA21XtWRLCTpzNU6Wp2vCwLKzXvlodbngdxQ1NQhwJqlEENTj5ts1tr3FjRnRQ/kBacmZXYCxgOxO6qP/P3AQstCEHuJ6ofpBWkEL24/oXqM+xYKBl0Ivkb3gYzzgaYoWcgFaREaaLnRbmvjam7Gv8oZoRrLXZnOe+gjdnqCkiTfsJ036qTUxbW1KlBs3ZDZr+j8vanUUBPLxKSckhAcZSn31kHfxhuAnjD6+wDyXgXe/Yt1hWt18U/TJ6MqA5px2GOkNUAwnxHfwW0KX1GtGJ570kD21iM0DneCYGq1WLu5IdKv/a+h+qlHJ/IjmF7a0qh03hxU6unCfifG33Pyh+2fjgqoPSHxp79hiJjqll+SbwbREIBtfAnrFaebbKFimpYC5i9eowfBdyLUmbki7+FRQzerk=
+
+os:
+  - linux
+
+# see haxe versions: http://haxe.org/website-content/downloads/versions.json
+haxe:
+  - "3.4.2"
+
+install:
+  - haxelib install tweenxcore
+
+script:
+  - haxe geometrize-tweens.hxml
+
+# Deploy the generated site using Travis builtin GitHub Pages support
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: $TRAVIS_BUILD_DIR/bin/release
+  github_token: $GITHUB_API_KEY
+  # Sets the CNAME file for the custom domain (not enough to just set it on the Github page settings)
+  fqdn: tweens.geometrize.co.uk
+  on:
+    branch: master

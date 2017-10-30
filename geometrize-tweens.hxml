@@ -1,0 +1,10 @@
+# Enable full dead code elimination
+-dce full
+
+#--no-traces
+
+-lib tweenxcore
+
+# Build the frontend/one-page app
+-js bin/js/geometrize_tweens.js
+-main Main
