@@ -25,7 +25,7 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  local_dir: $TRAVIS_BUILD_DIR/bin/release
+  local_dir: $TRAVIS_BUILD_DIR/bin/
   github_token: $GITHUB_API_KEY
   # Sets the CNAME file for the custom domain (not enough to just set it on the Github page settings)
   fqdn: tweens.geometrize.co.uk
