@@ -3,6 +3,7 @@
 
 #--no-traces
 
+-lib threejs
 -lib tweenxcore
 
 # Build the frontend/one-page app
