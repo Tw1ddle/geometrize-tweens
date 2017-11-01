@@ -124,7 +124,7 @@ class Main {
 	 * @param	dt Time delta in seconds since the last frame.
 	 */
 	private function update(dt:Float):Void {
-		trace(music.getTime());
+		//trace(music.getTime());
 		
 		renderer.render();
 	}
