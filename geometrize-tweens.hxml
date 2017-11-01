@@ -3,8 +3,9 @@
 
 #--no-traces
 
+-lib actuate
 -lib threejs
--lib tweenxcore
+-lib waud
 
 # Build the frontend/one-page app
 -js bin/js/geometrize_tweens.js

@@ -37,4 +37,8 @@ abstract Ellipse(Array<Int>) from Array<Int> {
 	private function set_ry(ry:Int) {
 		return this[3] = ry;
 	}
+	
+	public function area():Float {
+		return Math.PI * rx * ry;
+	}
 }

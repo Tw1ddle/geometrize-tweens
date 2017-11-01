@@ -16,7 +16,9 @@ haxe:
   - "3.4.2"
 
 install:
-  - haxelib install tweenxcore
+  - haxelib install actuate
+  - haxelib install threejs
+  - haxelib install waud
 
 script:
   - haxe geometrize-tweens.hxml

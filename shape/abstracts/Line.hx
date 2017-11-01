@@ -37,4 +37,8 @@ abstract Line(Array<Int>) from Array<Int> {
 	private function set_y2(y:Int) {
 		return this[3] = y;
 	}
+	
+	public function area():Float {
+		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	}
 }

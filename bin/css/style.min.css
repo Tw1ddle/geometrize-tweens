@@ -7,20 +7,11 @@
 }
 body{
     font-family: 'Open Sans', sans-serif;
-    background-color: #000000;
-    color: #000000;
+    background-color:black;
+    color: black;
     font-size: 13px;
     overflow-x: hidden !important;
     overflow-y: hidden !important;
-}
-.container{
-    position: relative;
-    padding: 0px 0px 0px 0px;
-    width: 100%;
-}
-.container_inner{
-    width: 1000px;
-    margin: 0px auto;
 }
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     background: transparent;
@@ -30,29 +21,24 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
     outline: 0;
 }
-a img {
-    border: 0;
+#titlecontainer{
+    position: fixed;
+    text-align:center;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
 }
-img {
-    max-width: 100%;
-    height: auto;
-}
-p {
+#titletext{
+    display: inline-block;
     font-family: "Open Sans", sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 22px;
     color:white;
     margin: 10px 0;
 }
-a{
-    color: #ffffff;
+#titletext a{
     font-weight: 600;
     text-decoration: none;
-}
-p a {
     color: #ffffff;
-    text-decoration: none;
-}
-body{
-    background-color:black;
 }

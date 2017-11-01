@@ -4,7 +4,7 @@
 
 WORK IN PROGRESS
 
-Tweens that morph between images made from shapes. Run it [in your browser](http://tweens.geometrize.co.uk/).
+Tweening geometric primitives demo. Run it [in your browser](http://tweens.geometrize.co.uk/).
 
 Made using shape data from [Geometrize](http://www.geometrize.co.uk/), a tool for transforming images into geometric primitives.
 
