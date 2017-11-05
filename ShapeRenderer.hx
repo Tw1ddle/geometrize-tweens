@@ -27,39 +27,19 @@ import shape.abstracts.RotatedRectangle;
 import shape.abstracts.Triangle;
 
 /**
- * Data used for manipulating each three.js shape instance
- */
-typedef DemoShapeData = {
-	mesh:Mesh, // The three mesh object itself
-	material:MeshBasicMaterial, // The three mesh object's material
-	originalPosition:Vector3, // Original position of the geometrized shape (sourceShape x,y center, and z location)
-	sourceShape:Shape, // The source geometrized shape data
-	sourceOpacity:Float, // The opacity of the geometrized shape (0 transparent - 1 opaque)
-	sourceIndex:Int, // Index of the shape in the geometrized shape data (0-batchSize)
-	batchSize:Int, // Max index of the shape in the geometrized shape data
-	fractionThroughBatch:Float // Fraction of the way the shape was through the geometrized shape data by index (sourceIndex/batchSize)
-}
-
-/**
  * Code for rendering geometrized images with three.js.
  * @author Sam Twidale (http://samcodes.co.uk/)
  */
 @:keep
-class ThreeJsRenderer {
+class ShapeRenderer {
 	var renderer:WebGLRenderer; // The three.js WebGL renderer
-	var scene:Scene; // The scene in which the three.js objects live
+	var scene:Scene; // The scene in which all the objects live
+	var shapesRoot:Object3D; // The root object for all the shapes added to the scene, direct children contain batches of shapes for each image
+
 	var camera:PerspectiveCamera; // The camera view of the shapes
-	var shapes:Object3D; // The parent object for all the shapes added to the scene
 	
-	var shapeData:Array<DemoShapeData> = []; // The shape data associated with each shape
-	
-	var shapesWidth:Int; // Original canvas width of the loaded shape data
-	var shapesHeight:Int; // Original canvas height of the loaded shape data
-	
-	public function new(containerId:String, shapesWidth:Int, shapesHeight:Int) {
+	public function new(containerId:String) {
 		var container:DivElement = cast Browser.window.document.getElementById(containerId);
-		this.shapesWidth = shapesWidth;
-		this.shapesHeight = shapesHeight;
 		
 		var canvas = Browser.window.document.createCanvasElement();
 		canvas.width = Browser.window.innerWidth;
@@ -73,24 +53,17 @@ class ThreeJsRenderer {
 		scene = new Scene();
 		scene.background = new Color(0x000000);
 		
-		var cameraWidth:Int = Browser.window.innerWidth;
-		var cameraHeight:Int = Browser.window.innerHeight;
-		camera = new PerspectiveCamera(45, cameraWidth / cameraHeight, 1, 10000);
-		camera.position.set(0, 0, 1500);
-		camera.up = new Vector3(-1, -1, -1);
-		camera.lookAt(scene.position);
+		camera = new PerspectiveCamera(45, Browser.window.innerWidth / Browser.window.innerHeight, 1, 10000);
 		
 		scene.add(camera);
 		
-		shapes = new Object3D();
-		
-		scene.add(shapes);
-		centerShapes(-shapesWidth / 2, -shapesHeight / 2);
+		shapesRoot = new Object3D();
+		scene.add(shapesRoot);
 	}
 	
-	public function addShapes(shapes:Array<shape.Shape>) {
-		var index:Int = 0;
-		var batchSize:Int = shapes.length;
+	public function addShapes(shapes:Array<shape.Shape>):Object3D {
+		var shapesParent = new Object3D();
+		this.shapesRoot.add(shapesParent);
 		
 		for (shape in shapes) {
 			var mesh:Mesh = switch(shape.type) {
@@ -111,23 +84,9 @@ class ThreeJsRenderer {
 				default:
 					throw "Encountered unsupported shape type";
 			};
-			
-			this.shapes.add(mesh);
-			
-			var opacity:Float = (shape.color & 0xFF) / 255.0;
-			shapeData.push({
-				mesh: mesh,
-				material: cast mesh.material,
-				originalPosition: new Vector3(mesh.position.x,mesh.position.y,mesh.position.z),
-				sourceShape: shape,
-				sourceOpacity: opacity,
-				sourceIndex: index,
-				batchSize: batchSize,
-				fractionThroughBatch: index/batchSize
-			});
-			
-			index++;
+			shapesParent.add(mesh);
 		}
+		return shapesParent;
 	}
 	
 	public function render():Void {
@@ -137,7 +96,6 @@ class ThreeJsRenderer {
 	public function resize(width:Int, height:Int) {
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
-
 		renderer.setSize(width, height);
 	}
 	
@@ -190,22 +148,19 @@ class ThreeJsRenderer {
 	}
 	
 	private inline function clearScene() {
-		for (shape in shapes.children) {
+		for (shape in shapesRoot.children) {
 			var m:Mesh = cast shape;
 			var g:Geometry = cast m.geometry;
 			g.dispose();
 			m.material.dispose();
-			shapeData = [];
 		}
-		shapes = new Object3D();
+		shapesRoot = new Object3D();
 	}
 	
 	// Creates a material from an RGBA8888 color value
 	private static inline function makeMaterial(color:Int):MeshBasicMaterial {
 		var rgb:Int = color >> 8;
-		
 		var threeDoubleSide:Int = 2; // NOTE hackiness since generated threejs externs aren't working out of the box
-		
 		var opacity:Float = (color & 0xFF) / 255.0;
 		return new MeshBasicMaterial({color:rgb, transparent:true, opacity:opacity, side:cast threeDoubleSide, depthTest:false});
 	}
@@ -214,9 +169,5 @@ class ThreeJsRenderer {
 		var material = makeMaterial(color);
 		var mesh = new Mesh(geometry, material);
 		return mesh;
-	}
-	
-	private function centerShapes(width:Float, height:Float):Void {
-		shapes.position.set(width, height, 0); // Keep the shapes parent centered in the view
 	}
 }

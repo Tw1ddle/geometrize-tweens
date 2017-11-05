@@ -45,4 +45,8 @@ abstract RotatedEllipse(Array<Int>) from Array<Int> {
 	private function set_angle(y:Int) {
 		return this[4] = y;
 	}
+	
+	public function area():Float {
+		return Math.PI * rx * ry;
+	}
 }

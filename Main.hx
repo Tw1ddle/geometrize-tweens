@@ -1,22 +1,8 @@
 package;
 
-import js.Browser;
-import ThreeJsRenderer;
-import shape.Shape;
-import reader.ShapeJsonData;
-import reader.ShapeEmbedder;
-import reader.ShapeJsonReader;
-import shape.abstracts.Rectangle;
+import ShapeRenderer;
 import Waud;
-
-// Automatic HTML code completion, you need to point these to your HTML
-@:build(CodeCompletion.buildLocalFile("bin/index.html"))
-//@:build(CodeCompletion.buildUrl("http://tweens.geometrize.co.uk/"))
-class ID {}
-
-@:build(reader.ShapeEmbedder.buildDirectory("bin/assets/data/"))
-@:keep
-class EmbeddedShapes {}
+import js.Browser;
 
 /**
  * A one-page app that demonstrates tweening of shape data produced by the Geometrize app
@@ -24,19 +10,14 @@ class EmbeddedShapes {}
  */
 class Main {
 	private static inline var WEBSITE_URL:String = "http://tweens.geometrize.co.uk/"; // Hosted demo URL
-	
+
 	private static var lastAnimationTime:Float = 0.0; // Last time from requestAnimationFrame
 	private static var dt:Float = 0.0; // Frame delta time
 
-	private var renderer:ThreeJsRenderer; // The shape renderer
+	private var renderer:ShapeRenderer; // The shape renderer
 	private var music:WaudSound; // Background music
-	private var demo:Demo; // The actual demo logic
-	
-	// References to the HTML page elements we need
-	private static inline function getElement(id:String):Dynamic {
-		return Browser.document.getElementById(id);
-	}
-	
+	private var demo:GeometrizeTweens; // The actual demo logic
+
 	private static function main():Void {
 		var main = new Main();
 	}
@@ -49,13 +30,8 @@ class Main {
 	 * One-time initialization.
 	 */
 	private inline function onWindowLoaded():Void {
-		var shapes = Reflect.field(EmbeddedShapes, "girl_with_a_pearl_earring_json");
-		var backgroundShape:Rectangle = cast shapes[0].data;
-		trace(backgroundShape);
-		renderer = new ThreeJsRenderer("renderer", backgroundShape.x2 - backgroundShape.x1, backgroundShape.y2 - backgroundShape.y1);
-		renderer.addShapes(shapes);
-		
-		demo = new Demo(renderer);
+		renderer = new ShapeRenderer("renderer");
+		demo = new GeometrizeTweens(renderer);
 		
 		Waud.init();
 		music = new WaudSound("assets/music/music.mp3", {"autoplay":true, "loop":true, onload:onMusicLoaded, onend:onMusicEnded, onerror:onMusicFailedToLoad});
@@ -104,7 +80,6 @@ class Main {
 	 * @param	sound The sound that loaded.
 	 */
 	private function onMusicLoaded(sound:IWaudSound):Void {
-		trace("Music loaded");
 		demo.started = true;
 	}
 
@@ -113,7 +88,6 @@ class Main {
 	 * @param	sound The sound that failed to load.
 	 */
 	private function onMusicFailedToLoad(sound:IWaudSound):Void {
-		trace("Music failed to load");
 		demo.started = true;
 	}
 

@@ -37,4 +37,8 @@ abstract Rectangle(Array<Int>) from Array<Int> {
 	private function set_y2(y:Int) {
 		return this[3] = y;
 	}
+	
+	public function area():Float {
+		return (x2 - x1) * (y2 - y1);
+	}
 }

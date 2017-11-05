@@ -45,4 +45,8 @@ abstract RotatedRectangle(Array<Int>) from Array<Int> {
 	private function set_angle(y:Int) {
 		return this[4] = y;
 	}
+	
+	public function area():Float {
+		return (x2 - x1) * (y2 - y1);
+	}
 }

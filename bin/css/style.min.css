@@ -21,6 +21,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
     outline: 0;
 }
+
 #titlecontainer{
     position: fixed;
     text-align:center;
@@ -38,6 +39,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     margin: 10px 0;
 }
 #titletext a{
+    font-weight: 600;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#imagetitlecontainer{
+    position: fixed;
+    text-align:center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+#imagetitletext{
+    display: inline-block;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    color:white;
+    margin: 10px 0;
+}
+#imagetitletext a{
     font-weight: 600;
     text-decoration: none;
     color: #ffffff;

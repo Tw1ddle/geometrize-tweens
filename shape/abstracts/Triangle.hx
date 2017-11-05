@@ -53,4 +53,9 @@ abstract Triangle(Array<Int>) from Array<Int> {
 	private function set_y3(y:Int) {
 		return this[5] = y;
 	}
+	
+	public function area():Float {
+		var area = Math.abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2;
+		return area;
+	}
 }
