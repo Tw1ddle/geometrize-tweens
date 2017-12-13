@@ -17,6 +17,7 @@ haxe:
 
 install:
   - haxelib install actuate
+  - haxelib install msignal
   - haxelib install threejs
   - haxelib install waud
 
