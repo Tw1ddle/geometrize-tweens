@@ -36,7 +36,7 @@ class ShapeRenderer {
 	var scene:Scene; // The scene in which all the objects live
 	var shapesRoot:Object3D; // The root object for all the shapes added to the scene, direct children contain batches of shapes for each image
 
-	var camera:PerspectiveCamera; // The camera view of the shapes
+	public var camera(default, null):PerspectiveCamera; // The camera view of the shapes
 	
 	public function new(containerId:String) {
 		var container:DivElement = cast Browser.window.document.getElementById(containerId);
@@ -58,6 +58,20 @@ class ShapeRenderer {
 		scene.add(camera);
 		
 		shapesRoot = new Object3D();
+		scene.add(shapesRoot);
+	}
+	
+	public function clearShapes() {
+		for (parent in shapesRoot.children) {
+			for (shape in parent.children) {
+				var m:Mesh = cast shape;
+				var g:Geometry = cast m.geometry;
+				g.dispose();
+				m.material.dispose();
+			}
+		}
+		scene.remove(shapesRoot);
+		this.shapesRoot = new Object3D();
 		scene.add(shapesRoot);
 	}
 	
@@ -145,16 +159,6 @@ class ShapeRenderer {
 		var mesh = makeMesh(geometry, c);
 		mesh.position.set(g.x, g.y, 4.0);
 		return mesh;
-	}
-	
-	private inline function clearScene() {
-		for (shape in shapesRoot.children) {
-			var m:Mesh = cast shape;
-			var g:Geometry = cast m.geometry;
-			g.dispose();
-			m.material.dispose();
-		}
-		shapesRoot = new Object3D();
 	}
 	
 	// Creates a material from an RGBA8888 color value

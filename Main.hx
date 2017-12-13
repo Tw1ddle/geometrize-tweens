@@ -3,6 +3,7 @@ package;
 import ShapeRenderer;
 import Waud;
 import js.Browser;
+import motion.Actuate;
 
 /**
  * A one-page app that demonstrates tweening of shape data produced by the Geometrize app
@@ -16,7 +17,7 @@ class Main {
 
 	private var renderer:ShapeRenderer; // The shape renderer
 	private var music:WaudSound; // Background music
-	private var demo:GeometrizeTweens; // The actual demo logic
+	private var demo:GeometrizeTweenDemo; // The actual demo logic
 
 	private static function main():Void {
 		var main = new Main();
@@ -31,7 +32,7 @@ class Main {
 	 */
 	private inline function onWindowLoaded():Void {
 		renderer = new ShapeRenderer("renderer");
-		demo = new GeometrizeTweens(renderer);
+		demo = new GeometrizeTweenDemo(renderer);
 		
 		Waud.init();
 		music = new WaudSound("assets/music/music.mp3", {"autoplay":true, "loop":true, onload:onMusicLoaded, onend:onMusicEnded, onerror:onMusicFailedToLoad});

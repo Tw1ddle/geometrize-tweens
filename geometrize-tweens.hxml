@@ -7,6 +7,8 @@
 -lib threejs
 -lib waud
 
+-lib msignal
+-lib Sure
 # Build the frontend/one-page app
 -js bin/js/geometrize_tweens.js
 -main Main
