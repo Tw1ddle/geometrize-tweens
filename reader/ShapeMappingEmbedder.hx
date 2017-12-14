@@ -46,7 +46,7 @@ class ShapeMappingEmbedder {
 				
 				var data:String = readFileAsString(filePath);
 				var name:String = toVarName(file);
-				var values:Array<Int> = ShapeMappingReader.mappingsFromJson(data);
+				var values:Array<Int> = ShapeMappingReader.mappingsFromCSV(data);
 				
 				var field = {
 					name: name,

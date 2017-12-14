@@ -9,9 +9,12 @@ import haxe.Json;
  @:keep
 class ShapeMappingReader {
 	// Reads JSON into an array of shape index mapping pairs
-	public static function mappingsFromJson(jsonData:String):Array<Int> {
-		var json = Json.parse(jsonData);
-		var indices:Array<Int> = json.indices;
+	public static function mappingsFromCSV(data:String):Array<Int> {
+		var parts:Array<String> = data.split(",");
+		var indices:Array<Int> = [];
+		for (part in parts) {
+			indices.push(Std.parseInt(part));
+		}
 		return indices;
 	}
 }
