@@ -257,9 +257,6 @@ class GeometrizeTweenDemo {
 	private static inline function getElement(id:String):Dynamic {
 		return Browser.document.getElementById(id);
 	}
-	private inline function setImageTitle(title:String):Void {
-		getElement(ID.imagetitletext).innerHTML = title;
-	}
 	
 	public function set_started(started:Bool):Bool {
 		return this.started = started;
