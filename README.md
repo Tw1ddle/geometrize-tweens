@@ -1,6 +1,6 @@
 [![Project logo](https://github.com/Tw1ddle/geometrize-tweens/blob/master/screenshots/logo.png?raw=true "Geometrize Tweens Project logo")](https://www.geometrize.co.uk/)
 
-[![Build Status](https://img.shields.io/travis/Tw1ddle/geometrize-tweens.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/geometrize-tweens)
+[![Geometrize Tweens Build Status](https://ci.appveyor.com/api/projects/status/github/Tw1ddle/geometrize-tweens)](https://ci.appveyor.com/project/Tw1ddle/geometrize-tweens)
 
 Tweening geometric primitives created from CC0 images. Run it [in your browser](https://tweens.geometrize.co.uk/).
 
