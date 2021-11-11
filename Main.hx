@@ -7,10 +7,10 @@ import motion.Actuate;
 
 /**
  * A one-page app that demonstrates tweening of shape data produced by the Geometrize app
- * @author Sam Twidale (http://samcodes.co.uk/)
+ * @author Sam Twidale (https://samcodes.co.uk/)
  */
 class Main {
-	private static inline var WEBSITE_URL:String = "http://tweens.geometrize.co.uk/"; // Hosted demo URL
+	private static inline var WEBSITE_URL:String = "https://tweens.geometrize.co.uk/"; // Hosted demo URL
 
 	private static var lastAnimationTime:Float = 0.0; // Last time from requestAnimationFrame
 	private static var dt:Float = 0.0; // Frame delta time
